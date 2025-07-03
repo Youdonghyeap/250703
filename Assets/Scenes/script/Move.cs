@@ -83,11 +83,11 @@ public class NewMonoBehaviourScript : MonoBehaviour
         }
         if (Keyboard.current.upArrowKey.isPressed)
         {
-            transform.Translate(new Vector3(0, 10, 0) * Time.deltaTime);
+            transform.Translate(new Vector3(0, 5, 0) * Time.deltaTime);
         }
         if (Keyboard.current.downArrowKey.isPressed)
         {
-            transform.Translate(new Vector3(0, -10, 0) * Time.deltaTime);
+            transform.Translate(new Vector3(0, -5, 0) * Time.deltaTime);
         }
         if (Keyboard.current.leftArrowKey.isPressed)
         {
