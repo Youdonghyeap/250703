@@ -12,7 +12,6 @@ public class NewMonoBehaviourScript : MonoBehaviour
     private Vector3 childStartPosition;
     private GameObject boomerangInstance;
     private Vector3 boomerangStartPosition;
-    private bool boomerangFlying = false;
     private bool boomerangReturning = false;
     private float boomerangSpeed = 10f;
 
@@ -31,30 +30,22 @@ public class NewMonoBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update(){
         // 마우스 좌클릭 시 boomerangPrefab을 y축 방향으로 발사
-        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame && !boomerangFlying && !boomerangReturning)
+        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame && !boomerangReturning)
         {
             if (boomerangPrefab != null && childTransform != null)
             {
                 boomerangInstance = Instantiate(boomerangPrefab, childTransform.position, childTransform.rotation);
                 boomerangStartPosition = childTransform.position;
-                // childTransform을 안보이게 처리
-                Renderer rend = childTransform.GetComponent<Renderer>();
-                if (rend != null)
-                {
-                    rend.enabled = false;
-                }
-                boomerangFlying = true;
             }
         }
 
         // boomerang이 앞으로 날아감
-        if (boomerangFlying && boomerangInstance != null)
+        if (boomerangInstance != null)
         {
             boomerangInstance.transform.position += boomerangInstance.transform.up * boomerangSpeed * Time.deltaTime;
             float dist = Vector3.Distance(boomerangStartPosition, boomerangInstance.transform.position);
             if (dist >= moveDistance)
             {
-                boomerangFlying = false;
                 boomerangReturning = true;
             }
         }
@@ -68,11 +59,6 @@ public class NewMonoBehaviourScript : MonoBehaviour
             {
                 boomerangInstance.transform.position = childTransform.position;
                 // childTransform을 안보이게 처리
-                Renderer rend = childTransform.GetComponent<Renderer>();
-                if (rend != null)
-                {
-                    rend.enabled = true;
-                }
                 Destroy(boomerangInstance);
                 boomerangReturning = false;
             }
